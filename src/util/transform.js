@@ -40,9 +40,6 @@ function nPeopleCorrected(nPeopleRaw, population) {
   )
 }
 
-// inc.df$cumulative_people = cumsum(inc.df$n_people)
-// inc.df$cumulative_proportion = inc.df$cumulative_people/over15pop
-
 const cumeSum = R.compose(R.tail, R.scan(R.add, 0))
 
 function cumeProp(nPeople) {
