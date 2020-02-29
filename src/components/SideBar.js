@@ -2,11 +2,11 @@ import React from 'react'
 import UbiControls from './UbiControls'
 import TaxControls from './TaxControls'
 
-const SideBar = () => {
+const SideBar = ({tax, setTax, ubi, setUbi}) => {
   return (
     <div className="sidebar">
-      <UbiControls/>
-      <TaxControls/>
+      <UbiControls ubi={ubi} setUbi={setUbi}/>
+      <TaxControls tax={tax} setTax={setTax}/>
     </div>
   )
 }

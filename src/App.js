@@ -3,6 +3,7 @@ import MainPanel from './components/MainPanel'
 import Sidebar from './components/SideBar'
 import './App.css';
 import { getIncomeData } from './util/transform'
+import { getAfterTax } from './util/calc'
 
 
 function App() {
@@ -13,12 +14,14 @@ function App() {
     {threshold: 70000, rate: 0.33},
   ]
   const [tax, setTax] = useState(initialTax)
+  const [ubi, setUbi] = useState({value:0, phaseOut:0})
   const [income, setIncome] = useState({
     taxableIncome: [],
     nPeople: [],
     cumeProp: [],
   })
-
+  const initialAfterTaxIncome = getAfterTax(initialTax, income.taxableIncome)
+  
   useEffect(() => {
     getIncomeData().then(
       data => setIncome(data)
@@ -27,8 +30,14 @@ function App() {
   
   return (
     <div className="App">
-      <MainPanel income={income} tax={tax} initialTax={initialTax}/>
-      <Sidebar tax={tax} setTax={setTax}/>
+      <MainPanel 
+        income={income}
+        tax={tax} 
+        initialTax={initialTax} 
+        ubi={ubi}
+        initialAfterTaxIncome={initialAfterTaxIncome}
+      />
+      <Sidebar tax={tax} setTax={setTax} ubi={ubi} setUbi={setUbi}/>
     </div>
   );
 }
