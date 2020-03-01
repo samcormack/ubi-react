@@ -15,7 +15,14 @@ function TaxControls({ tax, setTax }) {
       {tax.map(({ threshold, rate }, i) => {
         return (
           <div className="taxControl" key={i}>
-            <input type="number" value={threshold} onChange={e => {updateTax(i, "threshold", e)}}/>
+            <input 
+              type="number" 
+              value={threshold}
+              min={i===0 ? 0 : tax[i-1].threshold} 
+              max={i===(tax.length-1) ? 10000000 : tax[i+1].threshold} 
+              step={100}
+              onChange={e => {updateTax(i, "threshold", e)}}
+            />
             <input 
               type="range" 
               min={i===0 ? 0 : tax[i-1].rate} 

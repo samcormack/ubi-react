@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react'
 import UbiGraphs from './UbiGraphs'
 import Surplus from './Surplus'
 import { getAfterTax, addUbi } from '../util/calc'
-import { useThrottledFn } from 'beautiful-react-hooks'
+import { throttle } from 'lodash'
 
 const MainPanel = ({ income, tax, initialTax, ubi, initialAfterTaxIncome}) => {
   const [afterTaxIncome, setAfterTaxIncome] = useState(initialAfterTaxIncome)
 
-  const thGetIncome = useThrottledFn(() => {
-    console.log("throttled")
-    setAfterTaxIncome(getAfterTax(tax, addUbi(ubi, income.taxableIncome)))
-  }, 1000)
+  // const thGetIncome = useThrottledFn(() => {
+  //   console.log("throttled")
+  //   setAfterTaxIncome(getAfterTax(tax, addUbi(ubi, income.taxableIncome)))
+  // }, 1000)
+  // const throttledGetIncome = throttle(() => {
+  //     setAfterTaxIncome(getAfterTax(tax, addUbi(ubi, income.taxableIncome)))
+  //   }, 1000)
+
+  const throttledGetIncome = () => {
+    return setTimeout(() => {
+      setAfterTaxIncome(getAfterTax(tax, addUbi(ubi, income.taxableIncome)))
+    }, 16)
+  }
 
   useEffect(() => {
-    console.log("effect")
-    thGetIncome()
-    return () => thGetIncome.cancel()
+    const tid = throttledGetIncome()
+    return () => {
+      clearTimeout(tid)
+    }
   },
   [tax, ubi, income]
   )

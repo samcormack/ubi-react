@@ -23,7 +23,6 @@ function calculateTax(tax, incomes) {
 const vectorSubtract = R.compose(R.map(R.apply(R.subtract)),R.zip)
 
 function getAfterTax(tax, incomes) {
-  console.log("boop")
   return vectorSubtract(incomes, calculateTax(tax, incomes))
 }
 

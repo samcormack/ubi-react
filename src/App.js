@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import MainPanel from './components/MainPanel'
 import Sidebar from './components/SideBar'
 import './App.css';
@@ -20,12 +20,16 @@ function App() {
     nPeople: [],
     cumeProp: [],
   })
-  const initialAfterTaxIncome = getAfterTax(initialTax, income.taxableIncome)
-  
+  const [initialAfterTaxIncome, setInitialAfterTaxIncome] = useState([])
+    
   useEffect(() => {
     getIncomeData().then(
-      data => setIncome(data)
+      data => {
+        setIncome(data)
+        setInitialAfterTaxIncome(getAfterTax(initialTax, data.taxableIncome))
+      }
     )
+
   }, [])
   
   return (

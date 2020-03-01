@@ -6,8 +6,9 @@ function UbiControls({ ubi, setUbi }) {
   const handlePhaseOutChange = e =>setUbi({...ubi, phaseOut: parseFloat(e.target.value)})
   return (
     <div className="ubiControls">
-      <input type="number" value={ubi.value} onChange={handleValueChange}/>
+      <input type="number" min={0} max= {1000000} value={ubi.value} onChange={handleValueChange}/>
       <input type="range" min={0} max={1} step={0.01} value={ubi.phaseOut} onChange={handlePhaseOutChange}/>
+      <span>{ubi.phaseOut}</span>
     </div>
   )
 }

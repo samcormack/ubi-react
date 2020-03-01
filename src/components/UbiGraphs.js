@@ -6,7 +6,9 @@ const graphify = R.zipWith((x,y) =>{return {x, y}} )
 
 function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIncome}) {
   return (
-    <VictoryChart>
+    <VictoryChart
+      // animate = {{ duration: 100, easing: "sinInOut" }}  
+    >
       <VictoryGroup
         colorScale={["red", "blue", "black"]}
         domain={{x: [0,1], y: [0,100000]}}
