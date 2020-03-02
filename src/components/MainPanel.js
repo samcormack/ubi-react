@@ -31,7 +31,7 @@ const MainPanel = ({ income, tax, initialTax, ubi, initialAfterTaxIncome}) => {
   )
 
   return (
-    <div className="mainPanel">
+    <div className="MainPanel">
       <h2>Design a UBI!</h2>
       <UbiGraphs 
         cumeProp={income.cumeProp}
