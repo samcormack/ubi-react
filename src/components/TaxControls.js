@@ -12,26 +12,38 @@ function TaxControls({ tax, setTax }) {
   }
   return (
     <div className="taxControls">
+      <h3>Marginal tax rates</h3>
       {tax.map(({ threshold, rate }, i) => {
         return (
           <div className="taxControl" key={i}>
-            <input 
-              type="number" 
-              value={threshold}
-              min={i===0 ? 0 : tax[i-1].threshold} 
-              max={i===(tax.length-1) ? 10000000 : tax[i+1].threshold} 
-              step={100}
-              onChange={e => {updateTax(i, "threshold", e)}}
-            />
-            <input 
-              type="range" 
-              min={i===0 ? 0 : tax[i-1].rate} 
-              max={i===(tax.length-1) ? 1 : tax[i+1].rate} 
-              step={0.005} 
-              value={rate} 
-              onChange={e => {updateTax(i, "rate", e)}}
-            />
-            {rate}
+            <div className="threshold">
+              <label>
+                Threshold
+                <input 
+                  type="number" 
+                  value={threshold}
+                  min={i===0 ? 0 : tax[i-1].threshold} 
+                  max={i===(tax.length-1) ? 10000000 : tax[i+1].threshold} 
+                  step={100}
+                  onChange={e => {updateTax(i, "threshold", e)}}
+                />
+              </label>
+            </div>
+            <div className="rate">
+              <label>
+                Rate
+                <input 
+                  type="range" 
+                  min={i===0 ? 0 : tax[i-1].rate} 
+                  max={i===(tax.length-1) ? 1 : tax[i+1].rate} 
+                  step={0.005} 
+                  value={rate} 
+                  onChange={e => {updateTax(i, "rate", e)}}
+                />
+                {rate}
+              </label>
+            </div>
+            
           </div>
         )
       })}

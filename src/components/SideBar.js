@@ -1,6 +1,8 @@
 import React from 'react'
 import UbiControls from './UbiControls'
 import TaxControls from './TaxControls'
+import './assets/slider.css'
+import './assets/sidebar.css'
 
 const SideBar = ({tax, setTax, ubi, setUbi}) => {
   return (

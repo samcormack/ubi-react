@@ -24,6 +24,10 @@ h2 {
   font-family: 'Saira', sans-serif;
 }
 
+h3 {
+  font-family: 'Saira', sans-serif;
+}
+
 .App {
   display: flex;
   justify-content: center;
