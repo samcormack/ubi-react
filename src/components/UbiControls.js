@@ -10,7 +10,7 @@ function UbiControls({ ubi, setUbi }) {
       <input type="number" min={0} max= {1000000} value={ubi.value} onChange={handleValueChange}/>
       <h3>Universal income phase-out rate</h3>
       <input type="range" min={0} max={1} step={0.01} value={ubi.phaseOut} onChange={handlePhaseOutChange}/>
-      <span>{ubi.phaseOut}</span>
+      <span>{`${ubi.phaseOut*100}%`}</span>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { VictoryChart, VictoryGroup, VictoryArea, VictoryLine } from 'victory'
+import { VictoryChart, VictoryGroup, VictoryArea, VictoryLine, VictoryVoronoiContainer, VictoryAxis, VictoryLabel } from 'victory'
 import * as R from 'ramda'
 
 const graphify = R.zipWith((x,y) =>{return {x, y}} )
@@ -17,7 +17,13 @@ function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIn
     <VictoryChart
       height = {600}
       width = {800}
-      padding = {{left: 60, top:40, right:20, bottom:40}}
+      padding = {{left: 100, top:40, right:20, bottom:40}}
+      containerComponent={
+        <VictoryVoronoiContainer
+          labels = {({ datum }) => `${datum.name}: ${Math.round(datum.x)}, ${Math.round(datum.y)}`}
+          voronoiDimension = "x"
+        />
+      }
       // animate = {{ duration: 100, easing: "sinInOut" }}  
     >
       <VictoryGroup
@@ -25,11 +31,18 @@ function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIn
         domain={{x: [0,1], y: [0,100000]}}
       >
         <VictoryArea
+          name="after-tax"
           data={graphifyAll({
             x: cumeProp,
             y: afterTaxIncome,
             y0: initialAfterTaxIncome,
           })}
+          style={{
+            data: {
+              stroke: "black",
+              strokeWidth: 3
+            }
+          }}
         />
         {/* <VictoryLine
           data={graphify(cumeProp, afterTaxIncome)}
@@ -38,9 +51,24 @@ function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIn
           data={graphify(cumeProp, initialAfterTaxIncome)}
         /> */}
         <VictoryLine
+          name="before-tax"
           data={graphify(cumeProp, beforeTaxIncome)}
+          style={{
+            data: {
+              strokeWidth: 3
+            }
+          }}
         />
       </VictoryGroup>
+      <VictoryAxis
+        label="Percentile"
+        tickFormat={t => `${100*t}%`}
+      />
+      <VictoryAxis
+        dependentAxis
+        label="Yearly income (NZD)"
+        axisLabelComponent={<VictoryLabel dy={-50}/>}
+      />
     </VictoryChart>
   )
 }

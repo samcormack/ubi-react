@@ -10,6 +10,20 @@ function TaxControls({ tax, setTax }) {
       tax
     ))
   }
+
+  const addBracket = () => {
+    setTax(R.append(
+      R.last(tax),
+      tax
+    ))
+  }
+
+  const removeBracket = () => {
+    if (tax.length > 1) {
+      setTax(R.dropLast(1, tax))
+    }
+  }
+
   return (
     <div className="taxControls">
       <h3>Marginal tax rates</h3>
@@ -40,13 +54,15 @@ function TaxControls({ tax, setTax }) {
                   value={rate} 
                   onChange={e => {updateTax(i, "rate", e)}}
                 />
-                {rate}
+                {`${(rate*100).toFixed(1)}%`}
               </label>
             </div>
             
           </div>
         )
       })}
+      <button type="button" onClick={addBracket}>Add tax bracket</button>
+      <button type="button" onClick={removeBracket}>Remove tax bracket</button>
     </div>
     
   )
