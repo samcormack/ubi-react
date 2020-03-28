@@ -13,6 +13,7 @@ const graphifyAll = listObj => {
 }
 
 function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIncome}) {
+  console.log(cumeProp)
   return (
     <VictoryChart
       height = {600}
@@ -62,7 +63,9 @@ function UbiGraphs({cumeProp, beforeTaxIncome, initialAfterTaxIncome, afterTaxIn
       </VictoryGroup>
       <VictoryAxis
         label="Percentile"
+        tickValues={[0.0, 0.2, 0.4, 0.6, 0.8, 1.0]}
         tickFormat={t => `${100*t}%`}
+        domainPadding={{x: 0}}
       />
       <VictoryAxis
         dependentAxis

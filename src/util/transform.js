@@ -1,6 +1,6 @@
 import Papa from 'papaparse'
 import * as R from 'ramda'
-import incomeData from '../data/income_data_processed.csv'
+import incomeData from '../data/income_data_processed_2018.csv'
 import popData from '../data/population_age.csv'
 
 const papaPromise = path => {
@@ -35,7 +35,11 @@ function popOverAge(minAge, population) {
 function nPeopleCorrected(nPeopleRaw, population) {
   return R.adjust(
     0,
-    noIncRaw => noIncRaw + popOverAge(15, population) - R.sum(nPeopleRaw),
+    noIncRaw => (
+      popOverAge(15, population) > R.sum(nPeopleRaw) 
+      ? noIncRaw + popOverAge(15, population) - R.sum(nPeopleRaw)
+      : noIncRaw
+    ),
     nPeopleRaw
   )
 }
